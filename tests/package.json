@@ -1,0 +1,12 @@
+{
+  "name": "rs-event-cuke",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "cucumber": "^4.0.0"
+  }
+}
