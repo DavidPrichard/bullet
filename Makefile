@@ -1,6 +1,9 @@
-test: install bdd
+test: clippy bdd
 
-bdd:
+clippy:
+	cargo +nightly clippy
+
+bdd: install
 	@make -C tests bdd
 
 install:

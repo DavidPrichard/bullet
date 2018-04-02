@@ -15,8 +15,8 @@ fn main() {
 }
 
 fn run(opt: &Options) -> Result<(), Error> {
-    match opt {
-        &Options::Calendar{ref date} => run_calendar(date)
+    match *opt {
+        Options::Calendar{ref date} => run_calendar(date)
     }
 }
 
@@ -55,8 +55,8 @@ enum Error<'a> {
 
 impl<'a> fmt::Display for Error<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-       match self {
-            &Error::InvalidDateString(ref s) => write!(
+       match *self {
+            Error::InvalidDateString(s) => write!(
                f, 
                "{:?}. Use the format \"YYYY-MM\"", s
             )
