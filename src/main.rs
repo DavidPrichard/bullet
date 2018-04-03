@@ -22,7 +22,7 @@ fn run(opt: &Options) -> Result<(), Error> {
 
 fn run_calendar(start: &Date<FixedOffset>) -> Result<(), Error> {
     let days = (0..)
-        .map(|i| *start + Duration::days(i))
+        .map(|offset| *start + Duration::days(offset))
         .take_while(|x| x.month() == start.month());
     
     for x in days {
