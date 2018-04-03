@@ -1,0 +1,1 @@
+These are the the .feature files that describe the UI of the CLI.  I've written this in Javascript using cucumber-js to decouple the interface tests from the implementation.  This allows me to even, god forbid, change the language the CLI is written in.
