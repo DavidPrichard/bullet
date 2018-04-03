@@ -2,7 +2,6 @@
 extern crate structopt;
 extern crate chrono;
 
-use std::fmt;
 use structopt::StructOpt;
 use chrono::prelude::*;
 use chrono::Duration;
@@ -23,11 +22,11 @@ fn run_calendar(start: &Date<FixedOffset>) {
     }
 }
 
-fn parse_date(s: &str) -> Result<Date<FixedOffset>, Error> {
+fn parse_date(s: &str) -> Result<Date<FixedOffset>, String> {
     let full_date = format!("{}-01T00:00:00Z", s);
     DateTime::parse_from_rfc3339(&full_date)
         .map(|x| x.date())
-        .map_err(|_| Error::InvalidDateString(s))
+        .map_err(|_| format!("{:?}. Use the format \"YYYY-MM\"", s))
 }
 
 #[derive(Debug, StructOpt)]
@@ -37,19 +36,5 @@ enum Options {
     Calendar {
         #[structopt(parse(try_from_str = "parse_date"))]
         date: Date<FixedOffset>
-    }
-}
-
-#[derive(Debug)]
-enum Error<'a> {
-    InvalidDateString(&'a str)
-}
-
-impl<'a> std::string::ToString for Error<'a> {
-    fn to_string(&self) -> String {
-        match *self {
-            Error::InvalidDateString(s) => 
-                format!("{:?}. Use the format \"YYYY-MM\"", s)
-        }
     }
 }
