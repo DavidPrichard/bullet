@@ -21,11 +21,11 @@ fn run(opt: &Options) -> Result<(), Error> {
 }
 
 fn run_calendar(start: &Date<FixedOffset>) -> Result<(), Error> {
-    let months = (0..)
+    let days = (0..)
         .map(|i| *start + Duration::days(i))
         .take_while(|x| x.month() == start.month());
     
-    for x in months {
+    for x in days {
         println!("* `{}`", x.format("%d %a:"));
     }
     Ok(())
