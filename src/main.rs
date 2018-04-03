@@ -9,18 +9,16 @@ use chrono::Duration;
 
 fn main() {
     let opt = Options::from_args();
-    if let Err(err) = run(&opt) {
-        eprintln!("{}", err); 
-    }
+    run(&opt);
 }
 
-fn run(opt: &Options) -> Result<(), Error> {
+fn run(opt: &Options) {
     match *opt {
         Options::Calendar{ref date} => run_calendar(date)
     }
 }
 
-fn run_calendar(start: &Date<FixedOffset>) -> Result<(), Error> {
+fn run_calendar(start: &Date<FixedOffset>) {
     let days = (0..)
         .map(|offset| *start + Duration::days(offset))
         .take_while(|x| x.month() == start.month());
@@ -28,7 +26,6 @@ fn run_calendar(start: &Date<FixedOffset>) -> Result<(), Error> {
     for x in days {
         println!("* `{}`", x.format("%d %a:"));
     }
-    Ok(())
 }
 
 fn parse_date(s: &str) -> Result<Date<FixedOffset>, Error> {
