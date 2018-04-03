@@ -56,10 +56,8 @@ enum Error<'a> {
 impl<'a> fmt::Display for Error<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
        match *self {
-            Error::InvalidDateString(s) => write!(
-               f, 
-               "{:?}. Use the format \"YYYY-MM\"", s
-            )
+            Error::InvalidDateString(s) => 
+                write!(f, "{:?}. Use the format \"YYYY-MM\"", s)
        }
     }
 }
