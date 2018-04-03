@@ -2,7 +2,7 @@ Feature: bullet calendar
     As a bullet journaler, I want to be able to output a list of days for a month
 
     Scenario: Valid Month
-    When I run the command "bullet calendar 2018-04"
+    When I run the command "bullet monthly-log 2018-04"
     Then I should see the following output:
     """
 * `01 Sun:`
@@ -39,7 +39,7 @@ Feature: bullet calendar
     """
 
     Scenario: Invalid Month String
-    When I run the command "bullet calendar invalid"
+    When I run the command "bullet monthly-log invalid"
     Then I should see the following error:
     """
     error: Invalid value for '<date>': "invalid". Use the format "YYYY-MM"
