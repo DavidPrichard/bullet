@@ -8,12 +8,7 @@ use chrono::prelude::*;
 use chrono::Duration;
 
 fn main() {
-    let opt = Options::from_args();
-    run(&opt);
-}
-
-fn run(opt: &Options) {
-    match *opt {
+    match Options::from_args() {
         Options::Calendar{ref date} => run_calendar(date)
     }
 }
