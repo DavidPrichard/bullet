@@ -45,11 +45,11 @@ enum Error<'a> {
     InvalidDateString(&'a str)
 }
 
-impl<'a> fmt::Display for Error<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-       match *self {
+impl<'a> std::string::ToString for Error<'a> {
+    fn to_string(&self) -> String {
+        match *self {
             Error::InvalidDateString(s) => 
-                write!(f, "{:?}. Use the format \"YYYY-MM\"", s)
-       }
+                format!("{:?}. Use the format \"YYYY-MM\"", s)
+        }
     }
 }
