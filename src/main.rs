@@ -21,12 +21,8 @@ fn run(opt: &Options) -> Result<(), Error> {
 }
 
 fn run_calendar(date: &Date<FixedOffset>) -> Result<(), Error> {
-    let month = date.month();
-    for i in 0..31 {
-        let x = *date + Duration::days(i);
-        if x.month() == month {
-            println!("* `{}`", x.format("%d %a:"));
-        }
+    for x in MonthDays::new(date) {
+        println!("* `{}`", x.format("%d %a:"));
     }
     Ok(())
 }
@@ -59,5 +55,34 @@ impl<'a> fmt::Display for Error<'a> {
             Error::InvalidDateString(s) => 
                 write!(f, "{:?}. Use the format \"YYYY-MM\"", s)
        }
+    }
+}
+
+/// MonthDays is an Iterator of the days of the month starting with start (inclusive)
+struct MonthDays<'a>{
+    start: &'a Date<FixedOffset>, 
+    i: i64
+}
+
+
+impl<'a> MonthDays<'a> {
+    /// Construct a new MonthDays iterator starting with start
+    fn new(start: &Date<FixedOffset>) -> MonthDays {
+        MonthDays{start, i:0}
+    }
+}
+
+impl<'a> Iterator for MonthDays<'a> {
+    type Item = Date<FixedOffset>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let curr = *self.start + Duration::days(self.i);
+        
+        if self.start.month() != curr.month() {
+            return None;
+        }
+
+        self.i += 1;
+        Some(curr)
     }
 }
