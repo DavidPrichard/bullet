@@ -32,9 +32,11 @@ fn parse_date(s: &str) -> Result<Date<FixedOffset>, String> {
 #[derive(Debug, StructOpt)]
 #[structopt(name="bullet", about="A digital bullet journal page generator")]
 enum Options {
-    #[structopt(name="monthly-log", about="Generate a list of days")]
+    #[structopt(name="monthly-log")]
+    /// Generate a list of days for a month
     Calendar {
         #[structopt(parse(try_from_str = "parse_date"))]
+        /// Year and month format: YYYY-MM
         date: Date<FixedOffset>
     }
 }
